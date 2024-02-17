@@ -87,7 +87,7 @@ const logger = winston.createLogger({
           external: {
             title,
             description,
-            uri: imageUrl,
+            uri: item.link,
             thumb: blob,
           },
         };
