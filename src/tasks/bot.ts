@@ -19,14 +19,10 @@ const logger = winston.createLogger({
 });
 
 (async () => {
-  logger.info("Logging in...");
   const agent = await login(env.BLUESKY_USERNAME, env.BLUESKY_PASSWORD);
-  logger.info("Logged in");
 
   for (const feedUrl of feeds) {
-    logger.info(`Fetching ${feedUrl}`);
     const feed = await fetchRSS(feedUrl);
-    logger.info(`Fetched ${feedUrl}`);
 
     feed.items.reverse(); // oldest first
     for (const item of feed.items) {
@@ -44,16 +40,12 @@ const logger = winston.createLogger({
         continue;
       }
 
-      logger.info("Fetching OGP...");
       const ogp = await fetchOGP(item.link);
-      logger.info("Fetched OGP", ogp);
-
       const title = ogp.ogTitle ?? item.title;
       if (title == null) {
         logger.warn("No title", item);
         continue;
       }
-
       const description = ogp.ogDescription ?? "";
 
       const richText = new RichText({ text: `${title}\n${item.link}` });
@@ -67,21 +59,13 @@ const logger = winston.createLogger({
 
       const imageUrl = ogp.ogImage?.at(0)?.url;
       if (imageUrl != null) {
-        logger.info("Fetching image...", imageUrl);
         const image = await fetchImage(imageUrl);
-        logger.info("Fetched image", imageUrl);
-
-        logger.info("Resizing image...");
         const resized = await resizeImage(image, 800);
-        logger.info("Resized image");
-
-        logger.info("Uploading image...");
         const blob = await uploadImage(
           agent,
           new Uint8Array(resized),
           "image/jpeg",
         );
-        logger.info("Uploaded image", imageUrl);
 
         const embed: AppBskyEmbedExternal.Main = {
           $type: "app.bsky.embed.external",
@@ -99,9 +83,7 @@ const logger = winston.createLogger({
       await agent.post(record);
       logger.info("Posted", record);
 
-      logger.info("Saving item...", item.link);
       await saveItem(item.link);
-      logger.info("Saved item", item.link);
     }
   }
 })();
