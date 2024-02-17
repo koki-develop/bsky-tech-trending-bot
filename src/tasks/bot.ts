@@ -7,6 +7,7 @@ import { env } from "../lib/env";
 import { fetchImage, resizeImage } from "../lib/image";
 import { fetchOGP } from "../lib/ogp";
 import { fetchRSS } from "../lib/rss";
+import { sleep } from "../lib/util";
 
 const logger = winston.createLogger({
   level: "info",
@@ -28,6 +29,8 @@ const logger = winston.createLogger({
     logger.info(`Fetched ${feedUrl}`);
 
     for (const item of feed.items) {
+      await sleep(1000);
+
       if (item.link == null) {
         logger.warn("No link", item);
         continue;
