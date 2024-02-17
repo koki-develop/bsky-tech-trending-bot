@@ -28,6 +28,7 @@ const logger = winston.createLogger({
     const feed = await fetchRSS(feedUrl);
     logger.info(`Fetched ${feedUrl}`);
 
+    feed.items.reverse(); // oldest first
     for (const item of feed.items) {
       await sleep(1000);
 
