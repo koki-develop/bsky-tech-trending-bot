@@ -1,7 +1,7 @@
 import { AppBskyEmbedExternal, AppBskyFeedPost, RichText } from "@atproto/api";
 import winston from "winston";
 import { feeds } from "../../feeds";
-import { login, uploadImage } from "../lib/bsky";
+import { login, post, uploadImage } from "../lib/bsky";
 import { existsItem, saveItem } from "../lib/db";
 import { env } from "../lib/env";
 import { fetchImage, resizeImage } from "../lib/image";
@@ -48,13 +48,8 @@ const logger = winston.createLogger({
       }
       const description = ogp.ogDescription ?? "";
 
-      const richText = new RichText({ text: `${title}\n${item.link}` });
-      await richText.detectFacets(agent);
-
-      const record: Partial<AppBskyFeedPost.Record> &
-        Omit<AppBskyFeedPost.Record, "createdAt"> = {
-        text: richText.text,
-        facets: richText.facets,
+      const params: { text: string; embed?: AppBskyEmbedExternal.Main } = {
+        text: `${title}\n${item.link}`,
       };
 
       const imageUrl = ogp.ogImage?.at(0)?.url;
@@ -76,13 +71,10 @@ const logger = winston.createLogger({
             thumb: blob,
           },
         };
-        record.embed = embed;
+        params.embed = embed;
       }
 
-      logger.info("Posting...", record);
-      await agent.post(record);
-      logger.info("Posted", record);
-
+      await post(agent, params.text, params.embed);
       await saveItem(item.link);
     }
   }
