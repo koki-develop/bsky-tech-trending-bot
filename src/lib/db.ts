@@ -22,7 +22,7 @@ export const saveItem = async (url: string) => {
         url: { S: url },
         ttl: { N: ttl.toString() },
       },
-    })
+    }),
   );
 };
 
@@ -33,7 +33,7 @@ export const existsItem = async (url: string) => {
       Key: {
         url: { S: url },
       },
-    })
+    }),
   );
 
   return response.Item != null;
