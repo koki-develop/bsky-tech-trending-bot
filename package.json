@@ -8,5 +8,8 @@
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "open-graph-scraper": "^6.4.0"
   }
 }
