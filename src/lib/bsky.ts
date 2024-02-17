@@ -9,7 +9,7 @@ export const login = async (username: string, password: string) => {
 export const uploadImage = async (
   agent: BskyAgent,
   image: Uint8Array,
-  encoding: string
+  encoding: string,
 ) => {
   const { data } = await agent.uploadBlob(image, { encoding });
   return data.blob;
