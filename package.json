@@ -3,7 +3,8 @@
   "author": "koki-develop <kou.pg.0131@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "fmt": "biome check --apply ."
+    "fmt": "biome check --apply .",
+    "bot": "ts-node src/tasks/bot.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
@@ -13,6 +14,7 @@
   },
   "dependencies": {
     "@atproto/api": "^0.9.7",
+    "@aws-sdk/client-dynamodb": "^3.515.0",
     "envalid": "^8.0.0",
     "open-graph-scraper": "^6.4.0",
     "rss-parser": "^3.13.0",
