@@ -2,6 +2,9 @@
   "name": "bsky-tech-trending-bot",
   "author": "koki-develop <kou.pg.0131@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "fmt": "biome check --apply ."
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
     "typescript": "^5.3.3"
