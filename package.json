@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@atproto/api": "^0.9.7",
+    "envalid": "^8.0.0",
     "open-graph-scraper": "^6.4.0",
     "rss-parser": "^3.13.0"
   }
