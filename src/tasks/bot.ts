@@ -1,5 +1,5 @@
 import { AppBskyEmbedExternal, AppBskyFeedPost, RichText } from "@atproto/api";
-import winston from "winston";
+import { logger } from "../lib/log";
 import { feeds } from "../../feeds";
 import { login, post, uploadImage } from "../lib/bsky";
 import { existsItem, saveItem } from "../lib/db";
@@ -8,15 +8,6 @@ import { fetchImage, resizeImage } from "../lib/image";
 import { fetchOGP } from "../lib/ogp";
 import { fetchRSS } from "../lib/rss";
 import { sleep } from "../lib/util";
-
-const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.simple(),
-  ),
-  transports: [new winston.transports.Console()],
-});
 
 (async () => {
   const agent = await login(env.BLUESKY_USERNAME, env.BLUESKY_PASSWORD);
