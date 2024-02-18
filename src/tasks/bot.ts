@@ -1,10 +1,10 @@
-import { AppBskyEmbedExternal, AppBskyFeedPost, RichText } from "@atproto/api";
-import { logger } from "../lib/log";
+import { AppBskyEmbedExternal } from "@atproto/api";
 import { feeds } from "../../feeds";
 import { login, post, uploadImage } from "../lib/bsky";
 import { existsItem, saveItem } from "../lib/db";
 import { env } from "../lib/env";
 import { fetchImage, resizeImage } from "../lib/image";
+import { logger } from "../lib/log";
 import { fetchOGP } from "../lib/ogp";
 import { fetchRSS } from "../lib/rss";
 import { sleep } from "../lib/util";
