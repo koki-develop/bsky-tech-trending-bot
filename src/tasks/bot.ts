@@ -1,3 +1,4 @@
+import fs from "fs";
 import { AppBskyEmbedExternal } from "@atproto/api";
 import { feeds } from "../../feeds";
 import { login, post, uploadImage } from "../lib/bsky";
@@ -11,6 +12,12 @@ import { sleep } from "../lib/util";
 
 (async () => {
   const agent = await login(env.BLUESKY_USERNAME, env.BLUESKY_PASSWORD);
+  const summaryLines: string[] = [
+    "# New Posts",
+    "",
+    "| Title | Link |",
+    "| --- | --- |",
+  ];
 
   for (const feedUrl of feeds) {
     const feed = await fetchRSS(feedUrl);
@@ -67,6 +74,10 @@ import { sleep } from "../lib/util";
 
       await post(agent, params.text, params.embed);
       await saveItem(item.link);
+
+      summaryLines.push(`| ${title} | ${item.link} |`);
     }
   }
+
+  fs.writeFileSync("summary.md", summaryLines.join("\n"));
 })();

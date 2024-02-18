@@ -29,3 +29,6 @@ jobs:
         env:
           BLUESKY_USERNAME: ${{ vars.BLUESKY_USERNAME }}
           BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
+
+      - name: Summary
+        run: cat ./summary.md | tee -a $GITHUB_STEP_SUMMARY
