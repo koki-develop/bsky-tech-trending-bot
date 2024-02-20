@@ -44,7 +44,6 @@ import { sleep } from "../lib/util";
         logger.warn("No title", item);
         continue;
       }
-      const description = ogp.ogDescription ?? "";
 
       const params: { text: string; embed?: AppBskyEmbedExternal.Main } = {
         text: `${title}\n${item.link}`,
@@ -64,7 +63,7 @@ import { sleep } from "../lib/util";
           $type: "app.bsky.embed.external",
           external: {
             title,
-            description,
+            description: ogp.ogDescription ?? "",
             uri: item.link,
             thumb: blob,
           },
