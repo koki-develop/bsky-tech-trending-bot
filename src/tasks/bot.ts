@@ -1,5 +1,6 @@
 import fs from "fs";
 import { AppBskyEmbedExternal } from "@atproto/api";
+import { OgObject } from "open-graph-scraper/dist/lib/types";
 import { feeds } from "../../feeds";
 import { login, post, uploadImage } from "../lib/bsky";
 import { existsItem, saveItem } from "../lib/db";
@@ -38,7 +39,10 @@ import { sleep } from "../lib/util";
         continue;
       }
 
-      const ogp = await fetchOGP(item.link);
+      const ogp = await fetchOGP(item.link).catch((err) => {
+        logger.warn("Failed to fetch OGP", err);
+        return {} as OgObject;
+      });
       const title = ogp.ogTitle ?? item.title;
       if (title == null) {
         logger.warn("No title", item);
