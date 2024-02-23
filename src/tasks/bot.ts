@@ -53,30 +53,32 @@ import { sleep } from "../lib/util";
         text: `${title}\n${item.link}`,
       };
 
+      const embed: AppBskyEmbedExternal.Main = {
+        $type: "app.bsky.embed.external",
+        external: {
+          title,
+          description: ogp.ogDescription ?? "",
+          uri: item.link,
+        },
+      };
+
       const imageUrl = ogp.ogImage?.at(0)?.url;
       if (imageUrl != null) {
-        await fetchImage(imageUrl).then(async image => {
-          const resized = await resizeImage(image, 800);
-          const blob = await uploadImage(
-            agent,
-            new Uint8Array(resized),
-            "image/jpeg",
-          );
-
-          const embed: AppBskyEmbedExternal.Main = {
-            $type: "app.bsky.embed.external",
-            external: {
-              title,
-              description: ogp.ogDescription ?? "",
-              uri: item.link ?? "",
-              thumb: blob,
-            },
-          };
-          params.embed = embed;
-        }).catch(err => {
-          logger.warn("Failed to fetch image", err);
-        });
+        await fetchImage(imageUrl)
+          .then(async (image) => {
+            const resized = await resizeImage(image, 800);
+            const blob = await uploadImage(
+              agent,
+              new Uint8Array(resized),
+              "image/jpeg",
+            );
+            embed.external.thumb = blob;
+          })
+          .catch((err) => {
+            logger.warn("Failed to fetch image", err);
+          });
       }
+      params.embed = embed;
 
       await post(agent, params.text, params.embed);
       await saveItem(item.link);
