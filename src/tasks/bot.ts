@@ -55,24 +55,27 @@ import { sleep } from "../lib/util";
 
       const imageUrl = ogp.ogImage?.at(0)?.url;
       if (imageUrl != null) {
-        const image = await fetchImage(imageUrl);
-        const resized = await resizeImage(image, 800);
-        const blob = await uploadImage(
-          agent,
-          new Uint8Array(resized),
-          "image/jpeg",
-        );
+        await fetchImage(imageUrl).then(async image => {
+          const resized = await resizeImage(image, 800);
+          const blob = await uploadImage(
+            agent,
+            new Uint8Array(resized),
+            "image/jpeg",
+          );
 
-        const embed: AppBskyEmbedExternal.Main = {
-          $type: "app.bsky.embed.external",
-          external: {
-            title,
-            description: ogp.ogDescription ?? "",
-            uri: item.link,
-            thumb: blob,
-          },
-        };
-        params.embed = embed;
+          const embed: AppBskyEmbedExternal.Main = {
+            $type: "app.bsky.embed.external",
+            external: {
+              title,
+              description: ogp.ogDescription ?? "",
+              uri: item.link ?? "",
+              thumb: blob,
+            },
+          };
+          params.embed = embed;
+        }).catch(err => {
+          logger.warn("Failed to fetch image", err);
+        });
       }
 
       await post(agent, params.text, params.embed);
