@@ -12,7 +12,7 @@ const tables = {
 } as const;
 
 export const saveItem = async (url: string) => {
-  logger.info("Saving item...", url);
+  logger.info("Saving item...", { url });
   const date = new Date();
   date.setDate(date.getUTCDate() + 7);
   const ttl = Math.floor(date.getTime() / 1000);
@@ -26,7 +26,7 @@ export const saveItem = async (url: string) => {
       },
     }),
   );
-  logger.info("Saved item", url);
+  logger.info("Saved item", { url });
 };
 
 export const existsItem = async (url: string) => {

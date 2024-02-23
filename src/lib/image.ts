@@ -2,11 +2,11 @@ import sharp from "sharp";
 import { logger } from "./log";
 
 export const fetchImage = async (url: string) => {
-  logger.info("Fetching image...", url);
+  logger.info("Fetching image...", { url });
   const response = await fetch(url);
   const buffer = await response.arrayBuffer();
 
-  logger.info("Fetched image", url);
+  logger.info("Fetched image", { url });
   return buffer;
 };
 

@@ -31,11 +31,11 @@ import { sleep } from "../lib/util";
         logger.warn("No link", item);
         continue;
       }
-      logger.info(`Processing ${item.link}`);
+      logger.info("Processing", { link: item.link });
 
       const exists = await existsItem(item.link);
       if (exists) {
-        logger.info("Already posted", item.link);
+        logger.info("Already posted", { link: item.link });
         continue;
       }
 
