@@ -16,7 +16,7 @@
     "typescript": "5.3.3"
   },
   "dependencies": {
-    "@atproto/api": "0.9.7",
+    "@atproto/api": "0.13.19",
     "@aws-sdk/client-dynamodb": "3.515.0",
     "envalid": "8.0.0",
     "open-graph-scraper": "6.4.0",
