@@ -1,14 +1,14 @@
 import {
   AppBskyEmbedExternal,
   AppBskyFeedPost,
-  BskyAgent,
+  AtpAgent,
   RichText,
 } from "@atproto/api";
 import { logger } from "./log";
 
 export const login = async (username: string, password: string) => {
   logger.info("Logging in...");
-  const agent = new BskyAgent({ service: "https://bsky.social" });
+  const agent = new AtpAgent({ service: "https://bsky.social" });
   await agent.login({ identifier: username, password });
 
   logger.info("Logged in");
@@ -16,7 +16,7 @@ export const login = async (username: string, password: string) => {
 };
 
 export const uploadImage = async (
-  agent: BskyAgent,
+  agent: AtpAgent,
   image: Uint8Array,
   encoding: string,
 ) => {
@@ -28,7 +28,7 @@ export const uploadImage = async (
 };
 
 export const post = async (
-  agent: BskyAgent,
+  agent: AtpAgent,
   text: string,
   embed?: AppBskyEmbedExternal.Main,
 ) => {
