@@ -3,25 +3,25 @@
   "author": "koki-develop <kou.pg.0131@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "fmt": "biome check --apply .",
     "bot": "ts-node src/tasks/bot.ts"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.5.3",
-    "@types/node": "^20.11.19",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "@biomejs/biome": "1.5.3",
+    "@types/node": "20.11.19",
+    "ts-node": "10.9.2",
+    "typescript": "5.3.3"
   },
   "dependencies": {
-    "@atproto/api": "^0.9.7",
-    "@aws-sdk/client-dynamodb": "^3.515.0",
-    "envalid": "^8.0.0",
-    "open-graph-scraper": "^6.4.0",
-    "rss-parser": "^3.13.0",
-    "sharp": "^0.33.2",
-    "winston": "^3.11.0"
+    "@atproto/api": "0.9.7",
+    "@aws-sdk/client-dynamodb": "3.515.0",
+    "envalid": "8.0.0",
+    "open-graph-scraper": "6.4.0",
+    "rss-parser": "3.13.0",
+    "sharp": "0.33.2",
+    "winston": "3.11.0"
   }
 }
