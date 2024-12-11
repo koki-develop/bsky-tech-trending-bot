@@ -13,10 +13,9 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: aquaproj/aqua-installer@v3.1.0
         with:
-          node-version-file: package.json
-          cache: npm
+          aqua_version: v2.38.4
       - name: Install dependencies
         run: npm ci
       - uses: aws-actions/configure-aws-credentials@v4
